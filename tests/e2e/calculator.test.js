@@ -1,0 +1,18 @@
+import { test, expect } from "@playwright/test";
+
+test.describe("계산기 E2E", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto("/");
+    });
+
+    test("페이지 제목이 보인다", async ({ page }) => {
+        await expect(page.locator("h1")).toHaveText("간단 계산기");
+    });
+
+    test("12 + 30 = 42", async ({ page }) => {
+        await page.getByTestId("inputA").fill("12");
+        await page.getByTestId("inputB").fill("30");
+        await page.getByTestId("btn-add").click();
+        await expect(page.getByTestId("display")).toHaveText("42");
+    });
+})
